@@ -5,7 +5,52 @@
   <link rel="stylesheet" type="text/css" href="/style.css">
   
   <script>
+    
+    // handle response
+    const handleResponse = async (response) => {
+      const content = document.getElementById('content');
 
+      switch(response.status) {
+        case 200: //Success
+          content.innerHTML = `<b>Success</b>`;
+          break;
+        case 400: //Bad Request
+          content.innerHTML = `<b>Bad Request</b>`;
+          break;
+        case 404: //Not Found
+          content.innerHTML = `<b>Not Found</b>`;
+          break;
+        default:
+          content.innerHTML = `<p>Status Code not Implemented By Client</p>`;
+          break;
+      }
+    };
+
+    // send fetch request
+    const sendFetchRequest = async (url, acceptedType) => {
+      const options = {
+        method: 'GET',
+        headers: { Accept: acceptedType }
+      };
+
+      fetch(url, options).then(response => {
+        handleResponse(response);
+      });
+    }
+
+    // init
+    const init = () => {
+      const button = document.querySelector("#send");
+
+      const urlSelector = document.querySelector("#page");
+      const dataTypeSelector = document.querySelector("#type");
+
+      button.onclick = () => { sendFetchRequest(urlSelector.value, dataTypeSelector.value); };
+
+      console.log(urlSelector.value);
+
+    }
+    window.onload = init;
   </script>
 </head>
 <body>
