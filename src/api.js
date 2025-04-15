@@ -5,29 +5,38 @@ const respond = (request, response, content, type, status) => {
 };
 
 const getUsers = (request, response) => {
-  // if Get, 200 and display results
-  // if Head, 200 no results and don't parse JSON data
+  const message = "";
 
   const userData = {
     users: {},
   };
 
-  return respond(request, response, JSON.stringify(userData), 'application/json', 200);
-};
+  if(request.method == "GET"){
+    return respond(request, response, JSON.stringify(userData), 'application/json', 200);
+  }
+
+  return respond(request, response, message, 'application/json', 200);
+  
+  };
 
 const notFound = (request, response) => {
-  const message = 'The page you are looking for was not found.';
+  let message = "";
 
-  // if Get, 404 and display error message
-  // if Head, no error message
+  if(request.method == "GET"){
+    message = 'The page you are looking for was not found.';
+    return respond(request, response, message, 'application/json', 404);
+  }
+
   return respond(request, response, message, 'application/json', 404);
 };
 
 const addUser = (request, response) => {
   const userData = {
     message: '',
-    name: '',
-    age: '',
+    users: {
+      name: '',
+      age: '',
+    },
   };
 
   // if user is new, return 201 status
