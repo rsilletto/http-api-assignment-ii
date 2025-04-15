@@ -14,6 +14,12 @@
         case 200: //Success
           content.innerHTML = `<b>Success</b>`;
           break;
+          case 201: //Get User - New User Created
+          content.innerHTML = `<b>Created</b>`;
+          break;
+          case 204: //Get User - User Updated
+          content.innerHTML = `<b>Updated (No Content)</b>`;
+          break;
         case 400: //Bad Request
           content.innerHTML = `<b>Bad Request</b>`;
           break;
@@ -27,9 +33,9 @@
     };
 
     // send fetch request
-    const sendFetchRequest = async (url, acceptedType) => {
+    const sendFetchRequest = async (url, acceptedType, method) => {
       const options = {
-        method: 'GET',
+        method: `${method}`,
         headers: { Accept: acceptedType }
       };
 
@@ -42,10 +48,13 @@
     const init = () => {
       const button = document.querySelector("#send");
 
-      const urlSelector = document.querySelector("#page");
-      const dataTypeSelector = document.querySelector("#type");
+      const name = document.querySelector('#nameField').value;
+      const age = document.querySelector('#ageField').value;
 
-      button.onclick = () => { sendFetchRequest(urlSelector.value, dataTypeSelector.value); };
+      const urlSelector = document.querySelector("#urlField");
+      const methodSelector= document.querySelector("#methodSelect");
+
+      button.onclick = () => { sendFetchRequest(urlSelector.value, "application/json", methodSelector.innerHTML); };
 
       console.log(urlSelector.value);
 

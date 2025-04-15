@@ -20,17 +20,17 @@ const onRequest = (request, response) => {
     case '/style.css':
       htmlHandler.getStyles(request, response);
       break;
-    case '/success':
-      api.success(request, response, acceptedTypes);
-      break;
     case '/getUsers':
       api.getUsers(request, response);
       break;
+    case '/addUser':
+      api.addUser(request, response);
+      break;
     case 'notReal':
-      // api.notReal(request, response);
+      api.notFound(request, response);
       break;
     default:
-      api.notFound(request, response, acceptedTypes);
+      api.notFound(request, response);
       break;
   }
 };
