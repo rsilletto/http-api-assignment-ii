@@ -1,22 +1,30 @@
-const respond = (request, response, content, type, status) => {
-  response.writeHead(status, { 'Content-Type': type });
-  response.write(content);
-  response.end();
-};
+// const respond = (request, response, content, type, status) => {
+//   response.writeHead(status, { 'Content-Type': type });
+//   response.write(content);
+//   response.end();
+// };
+
+const users = {};
 
 const getUsers = (request, response) => {
-  const message = "";
-
-  const userData = {
-    users: {},
-  };
-
-  if(request.method == "GET"){
-    return respond(request, response, JSON.stringify(userData), 'application/json', 200);
+  const responseData = {
+    users,
   }
 
-  return respond(request, response, message, 'application/json', 200);
-  
+  const responseMessage = JSON.stringify(responseData);
+
+  response.writeHead(200, { 'Content-Type': 'application/json'});
+
+  if(request.method != "HEAD"){
+    response.write(responseMessage);
+  }
+  response.end();
+
+  // if(request.method == "GET"){
+  //   return respond(request, response, responseMessage, 'application/json', 200);
+  // }
+
+  // return respond(request, response, message, 'application/json', 200);
   };
 
 const notFound = (request, response) => {
@@ -33,7 +41,7 @@ const notFound = (request, response) => {
 const addUser = (request, response) => {
   const userData = {
     message: '',
-    users: {
+    users: { 
       name: '',
       age: '',
     },
