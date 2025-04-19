@@ -10,8 +10,8 @@ const onRequest = (request, response) => {
   console.log(request.url);
 
   const parsedUrl = url.parse(request.url);
-  const acceptedTypes = request.headers.accept.split(',');
-  const params = query.parse(parsedUrl.query);
+  // const acceptedTypes = request.headers.accept.split(',');
+  // const params = query.parse(parsedUrl.query);
 
   switch (parsedUrl.pathname) {
     case '/':

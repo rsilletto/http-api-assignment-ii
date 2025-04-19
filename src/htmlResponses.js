@@ -15,4 +15,4 @@ const getStyles = (request, response) => {
   response.end();
 };
 
-module.exports = { getIndex, getStyles, }
+module.exports = { getIndex, getStyles };

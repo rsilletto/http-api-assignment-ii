@@ -9,13 +9,13 @@ const users = {};
 const getUsers = (request, response) => {
   const responseData = {
     users,
-  }
+  };
 
   const responseMessage = JSON.stringify(responseData);
 
-  response.writeHead(200, { 'Content-Type': 'application/json'});
+  response.writeHead(200, { 'Content-Type': 'application/json' });
 
-  if(request.method != "HEAD"){
+  if (request.method !== 'HEAD') {
     response.write(responseMessage);
   }
   response.end();
@@ -25,35 +25,50 @@ const getUsers = (request, response) => {
   // }
 
   // return respond(request, response, message, 'application/json', 200);
-  };
+};
 
 const notFound = (request, response) => {
-  let message = "";
+  let message = '';
 
-  if(request.method == "GET"){
+  const responseData = {
+    message,
+    id: 'notFound',
+  };
+
+  const responseMessage = JSON.stringify(responseData);
+
+  response.writeHead(200, { 'Content-Type': 'application/json' });
+
+  if (request.method === 'GET') {
     message = 'The page you are looking for was not found.';
-    return respond(request, response, message, 'application/json', 404);
+    response.write(responseMessage);
   }
 
-  return respond(request, response, message, 'application/json', 404);
+  // return respond(request, response, message, 'application/json', 404);
 };
 
 const addUser = (request, response) => {
-  const userData = {
-    message: '',
-    users: { 
-      name: '',
-      age: '',
-    },
+  const message = `User added: ${users.name}, ${users.age}`;
+  console.log(message);
+
+  const responseData = {
+    message,
+    id: 'notFound',
+    users,
   };
 
   // if user is new, return 201 status
   // if user is not new and age is updated, return 204 status
   // if user data is missing name or age, return 400 status
 
-  const message = `User added: ${userData.name}, ${userData.age}`;
-  console.log(message);
-  return respond(request, response, JSON.stringify(userData), 'application/json', 200);
+  const responseMessage = JSON.stringify(responseData);
+
+  response.writeHead(200, { 'Content-Type': 'application/json' });
+
+  if (request.method === 'GET') {
+    response.write(responseMessage);
+  }
+  // return respond(request, response, JSON.stringify(responseData), 'application/json', 200);
 };
 
 module.exports = {
