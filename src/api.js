@@ -53,7 +53,7 @@ const addUser = (request, response) => {
 
   const responseData = {
     message,
-    id: 'notFound',
+    id: 'addUser',
     users,
   };
 

@@ -55,7 +55,7 @@
       const urlSelector = document.querySelector("#urlField");
       const methodSelector= document.querySelector("#methodSelect");
 
-      addButton.onclick = () => { sendFetchRequest(urlSelector.value, "application/json", methodSelector.value.toUpperCase()); };
+      addButton.onclick = () => { sendFetchRequest("/addUser", "application/json", "POST"); };
       getButton.onclick = () => { sendFetchRequest(urlSelector.value, "application/json", methodSelector.value.toUpperCase()); };
 
       console.log(urlSelector.value);
