@@ -60,6 +60,7 @@ const addUser = (request, response) => {
 
   // if user is new, return 201 status
   // if user is not new and age is updated, return 204 status
+  // PUT method
   // if user data is missing name or age, return 400 status
 
   const responseMessage = JSON.stringify(responseData);
