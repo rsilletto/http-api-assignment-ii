@@ -48,7 +48,8 @@ const notFound = (request, response) => {
 };
 
 const addUser = (request, response) => {
-  const message = `User added: ${users.name}, ${users.age}`;
+  // const message = `User added: ${users.name}, ${users.age}`;
+  const message = `User added`;
   console.log(message);
 
   const responseData = {
