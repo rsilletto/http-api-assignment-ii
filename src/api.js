@@ -49,7 +49,7 @@ const notFound = (request, response) => {
 
 const addUser = (request, response) => {
   // const message = `User added: ${users.name}, ${users.age}`;
-  const message = `User added`;
+  const message = 'User added';
   console.log(message);
 
   const responseData = {
@@ -58,21 +58,34 @@ const addUser = (request, response) => {
     users,
   };
 
-  // if user is new, return 201 status
-  // if user is not new and age is updated, return 204 status
-  // PUT method
-  // if user data is missing name or age, return 400 status
+  const {name, age} = request.body;
 
-  const responseMessage = JSON.stringify(responseData);
-
-  response.writeHead(200, { 'Content-Type': 'application/json' });
-
-  if (request.method === 'GET') {
-    response.write(responseMessage);
+  if(!name || !age){
+    const obj = {
+      message: 'Both fields are required',
+      id: 'missingData'
+    };
+    writeResponse(request, response, 400, obj);
+    return;
   }
-  // return respond(request, response, JSON.stringify(responseData), 'application/json', 200);
-};
+  let statusCode = 204;
+
+  if(!users[name]){
+    statusCode = 201;
+    users[name] = {name,}
+  }
+  users[name].age = age;
+
+  if(statusCode === 201){
+    const obj = {
+      message: 'Created Successfully',
+    }
+    writeResponse(request, response, statusCode, obj);
+    return;
+  }
+  writeResponse(request, response, statusCode, {});
+}
 
 module.exports = {
   getUsers, notFound, addUser,
-};
+}
