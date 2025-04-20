@@ -9,26 +9,26 @@
     // handle response
     const handleResponse = async (response, method) => {
       const content = document.getElementById('content');
-      let data;
+      // let data;
 
-      if(response.status !== 204){
-        const contentType = response.header.get('content-type');
-        if(contentType && contentType.includes('application/json')){
-          data = await response.json;
-        }
-        else{
-          data = await response.text;
-        }
-      }
+      // if(response.status !== 204){
+      //   const contentType = response.header.get('content-type');
+      //   if(contentType && contentType.includes('application/json')){
+      //     data = await response.json;
+      //   }
+      //   else{
+      //     data = await response.text;
+      //   }
+      // }
 
-      let html = '';
+      // let html = '';
 
       switch(response.status) {
         case 200: //Success
-          content.innerHTML = `<b>Success</b><pre>${JSON.stringify(data,null,2)}</pre>`;
+          content.innerHTML = `<b>Success</b>`;
           break;
           case 201: //Get User - New User Created
-          content.innerHTML = `<b>Created</b><pre>${JSON.stringify(data,null,2)}</pre>`;
+          content.innerHTML = `<b>Created</b>`;
           break;
           case 204: //Get User - User Updated
           content.innerHTML = `<b>Updated (No Content)</b>`;
@@ -43,6 +43,9 @@
           content.innerHTML = `<p>Status Code not Implemented By Client</p>`;
           break;
       }
+
+      const responseData = await response.JSON();
+      content.innerHTML += `<h3>${JSON.stringify(responseData)}</h3>`;
     };
 
     // send fetch request
