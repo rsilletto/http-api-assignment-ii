@@ -6,6 +6,17 @@
 
 const users = {};
 
+const writeResponse = (request, response, statusCode, data) => {
+  response.writeHead(statusCode, { 'Content-Type': 'application/json' });
+
+  if (request.method !== 'HEAD' && statusCode !== 204) {
+    const responseJson = JSON.stringify(data);
+    response.write(responseJson);
+  }
+
+  response.end();
+};
+
 const getUsers = (request, response) => {
   const responseData = {
     users,
@@ -58,34 +69,34 @@ const addUser = (request, response) => {
     users,
   };
 
-  const {name, age} = request.body;
+  const { name, age } = request.body;
 
-  if(!name || !age){
+  if (!name || !age) {
     const obj = {
       message: 'Both fields are required',
-      id: 'missingData'
+      id: 'missingData',
     };
     writeResponse(request, response, 400, obj);
     return;
   }
   let statusCode = 204;
 
-  if(!users[name]){
+  if (!users[name]) {
     statusCode = 201;
-    users[name] = {name,}
+    users[name] = { name };
   }
   users[name].age = age;
 
-  if(statusCode === 201){
+  if (statusCode === 201) {
     const obj = {
       message: 'Created Successfully',
-    }
+    };
     writeResponse(request, response, statusCode, obj);
     return;
   }
   writeResponse(request, response, statusCode, {});
-}
+};
 
 module.exports = {
   getUsers, notFound, addUser,
-}
+};
