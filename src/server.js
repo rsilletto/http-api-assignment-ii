@@ -10,7 +10,7 @@ const getGrabbers = {
   '/': htmlHandler.getIndex,
   '/style.css': htmlHandler.getStyles,
   '/getUsers': api.getUsers,
-  '/notReal': api.notReal,
+  '/notReal': api.notFound,
 };
 
 const postHandlers = {
